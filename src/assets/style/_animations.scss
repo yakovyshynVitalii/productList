@@ -1,0 +1,38 @@
+.opacity-enter-active,
+.opacity-leave-active  {
+  opacity: 1;
+  transition: 0.2s ease-in-out;
+}
+
+.opacity-enter-from,
+.opacity-leave-to {
+  opacity: 0;
+}
+
+.list-enter-active,
+.list-move {
+  transition: 0.6s ease all;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-leave-active {
+  transition: 0.6s ease all;
+  position: absolute;
+  bottom: -100%;
+  left: -2%;
+}
+
+.list-list-enter-active,
+.list-list-leave-active {
+  transition: 0.6s ease all;
+}
+
+.list-list-enter-from,
+.list-list-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
