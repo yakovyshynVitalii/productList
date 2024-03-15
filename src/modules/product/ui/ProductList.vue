@@ -50,7 +50,7 @@ onMounted(() => {
                 </div>
                 <div  class="product-list__inner" v-else>
                     <transition-group name="list" >
-                        <ProductsCard v-for="product in getProductsList" :key="product.id" :product="product"/>
+                        <ProductsCard v-for="product in getProductsList" :key="product.id.toString()" :product="product as Product"/>
                     </transition-group>
                 </div>
             </transition>

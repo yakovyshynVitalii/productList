@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import AppTag from "@/shared/ui/AppTag.vue";
+import type {Product} from '@/modules/product/types';
+import type {PropType} from 'vue'
 
 const props = defineProps({
-    product: {
-        type: Object,
-        required: true
-    }
+    product: Object as PropType<Product>
 })
 
 const productImage = computed(() => props.product?.images[0])
@@ -15,22 +13,24 @@ const productImage = computed(() => props.product?.images[0])
 <template>
     <div class="product">
         <div class="product__img-wrapper">
-            <div class="product__discount">-{{product.discountPercentage}}%</div>
-            <img class="product__img" :src="productImage" :alt="`product ${product.id}`" width="150" height="150" loading="lazy"/>
+            <div class="product__discount">-{{ product?.discountPercentage }}%</div>
+            <img class="product__img" :src="productImage" :alt="`product ${product?.id}`" width="150" height="150"
+                 loading="lazy"/>
         </div>
         <div class="product__info">
             <div class="product__header">
-                <h4 class="product__title">{{ product.title }}</h4>
-                <AppTag :tag="product.category"/>
+                <h4 class="product__title">{{ product?.title }}</h4>
+                <p class="product__tag">{{ product?.category }}</p>
             </div>
             <div class="product__body">
-                <p class="product__description">{{ product.description }}</p>
+                <p class="product__description">{{ product?.description }}</p>
             </div>
             <div class="product__footer">
-                <p class="product__brand">{{ product.brand }}</p>
-                <p class="product__ratting"><img src="@/assets/icons/star.svg" alt="product start"> {{ product.rating }}
+                <p class="product__brand">{{ product?.brand }}</p>
+                <p class="product__ratting"><img src="@/assets/icons/star.svg" alt="product start">
+                    {{product?.rating}}
                 </p>
-                <p class="product__price"> {{ product.price }}$</p>
+                <p class="product__price"> {{ product?.price }}$</p>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@ const productImage = computed(() => props.product?.images[0])
         padding: 16px;
     }
 
-    &__img-wrapper{
+    &__img-wrapper {
         width: 100%;
         position: relative;
 
@@ -61,7 +61,7 @@ const productImage = computed(() => props.product?.images[0])
         }
     }
 
-    &__discount{
+    &__discount {
         position: absolute;
         left: 0;
         top: 0;
@@ -161,6 +161,21 @@ const productImage = computed(() => props.product?.images[0])
 
         & img {
             margin-right: 5px;
+        }
+    }
+
+    &__tag {
+        width: fit-content;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 12px;
+        color: $color-light;
+        background: $color-violet;
+
+        @media (min-width: $breakpoint-md) {
+            font-size: 18px;
         }
     }
 
