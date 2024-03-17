@@ -1,36 +1,35 @@
 <script setup lang="ts">
 import {computed} from "vue";
 import type {Product} from '@/modules/product/types';
-import type {PropType} from 'vue'
 
-const props = defineProps({
-    product: Object as PropType<Product>
-})
+const props = defineProps<{
+    product: Product
+}>()
 
-const productImage = computed(() => props.product?.images[0])
+const productImage = computed(() => props.product.images[0])
 </script>
 
 <template>
     <div class="product">
         <div class="product__img-wrapper">
-            <div class="product__discount">-{{ product?.discountPercentage }}%</div>
-            <img class="product__img" :src="productImage" :alt="`product ${product?.id}`" width="150" height="150"
+            <div class="product__discount">-{{ product.discountPercentage }}%</div>
+            <img class="product__img" :src="productImage" :alt="`product ${product.id}`" width="150" height="150"
                  loading="lazy"/>
         </div>
         <div class="product__info">
             <div class="product__header">
-                <h4 class="product__title">{{ product?.title }}</h4>
-                <p class="product__tag">{{ product?.category }}</p>
+                <h4 class="product__title">{{ product.title }}</h4>
+                <p class="product__tag">{{ product.category }}</p>
             </div>
             <div class="product__body">
-                <p class="product__description">{{ product?.description }}</p>
+                <p class="product__description">{{ product.description }}</p>
             </div>
             <div class="product__footer">
-                <p class="product__brand">{{ product?.brand }}</p>
+                <p class="product__brand">{{ product.brand }}</p>
                 <p class="product__ratting"><img src="@/assets/icons/star.svg" alt="product start">
-                    {{product?.rating}}
+                    {{product.rating}}
                 </p>
-                <p class="product__price"> {{ product?.price }}$</p>
+                <p class="product__price"> {{ product.price }}$</p>
             </div>
         </div>
     </div>

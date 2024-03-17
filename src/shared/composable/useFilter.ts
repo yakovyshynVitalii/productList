@@ -1,9 +1,14 @@
-interface Product {
-  [key: string]: string | number | string[];
-  images: string[];
+interface Element {
+  [key: string]: any; // Info: used as a global element that can contain any type
 }
 
-export function useFilter(elements: Product[], filterBy: string, filterValue: string) {
-  const inputText = filterValue.toLocaleLowerCase().trim();
-  return elements.filter((item) => item[filterBy].toString().toLocaleLowerCase().includes(inputText));
+export function useFilter<T extends Element>(
+  elements: T[],
+  filterBy: keyof T,
+  filterValue: string
+): T[] {
+  const inputText: string = filterValue.toLocaleLowerCase().trim();
+  return elements.filter((item: T) =>
+    item[filterBy].toString().toLocaleLowerCase().includes(inputText)
+  );
 }

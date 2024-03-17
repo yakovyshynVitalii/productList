@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import {computed, defineAsyncComponent, onMounted, ref} from "vue";
-import type {Ref} from "vue";
 import {type Product} from "@/modules/product/types";
 
 import AppInput from "@/shared/ui/AppInput.vue";
 import AppContentWrapper from "@/shared/ui/AppContentWrapper.vue";
-const ProductsCard = defineAsyncComponent(() => import('@/modules/product/ui/ProductsCard.vue'))
+const ProductCard = defineAsyncComponent(() => import('@/modules/product/ui/ProductCard.vue'))
 const ProductCardSkeleton = defineAsyncComponent(() => import('@/modules/product/ui/ProductCardSkeleton.vue'))
 const AppNotFound = defineAsyncComponent(() => import('@/shared/ui/AppNotFound.vue'))
 
-import ProductServices from "@/modules/product/services/ProductServices";
+import ProductServices from "@/modules/product/services/ProductService";
 import {useLoading} from "@/shared/composable/useLoading";
 import {useFilter} from "@/shared/composable/useFilter";
 
 const {fetchProducts} = ProductServices
 const {loading, changeLoading} = useLoading()
 
-const products: Ref<Product[]> = ref([])
-const filteredText: Ref<string> = ref('')
+const products = ref<Product[]>([])
+const filteredText = ref<string>('')
 
 const filteredProducts = computed(()=> useFilter(products.value, 'title', filteredText.value ))
 const getProductsList = computed(() => filteredProducts.value.length ? filteredProducts.value : products.value)
@@ -50,7 +49,7 @@ onMounted(() => {
                 </div>
                 <div  class="product-list__inner" v-else>
                     <transition-group name="list" >
-                        <ProductsCard v-for="product in getProductsList" :key="product.id.toString()" :product="product as Product"/>
+                        <ProductCard v-for="product in getProductsList" :key="product.id" :product="product"/>
                     </transition-group>
                 </div>
             </transition>
